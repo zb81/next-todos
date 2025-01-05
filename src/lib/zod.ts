@@ -10,3 +10,12 @@ export const createListSchema = z.object({
   }).refine(color => [...ListMap.keys()].includes(color))
 })
 export type CreateListSchemaType = z.infer<typeof createListSchema>
+
+export const createTaskSchema = z.object({
+  listId: z.number().nonnegative(),
+  content: z.string().min(1, {
+    message: '请输入任务内容',
+  }),
+  expiresAt: z.date().optional(),
+})
+export type CreateTaskSchemaType = z.infer<typeof createTaskSchema>
